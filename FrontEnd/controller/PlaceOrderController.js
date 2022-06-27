@@ -27,11 +27,11 @@ $("#btnAddtoCart").click(function () {
 function generateOrderNumber() {
 
     $.ajax({
-       url:"http://localhost:8080/Spring_PosSystem_BackEnd_war/",
+       url:"http://localhost:8080/Spring_PosSystem_BackEnd_war/purchase_Order",
         method:"GET",
         success(response){
             try {
-                let lastOId =response.data[response.data.length - 1].oD;
+                let lastOId =response.data[response.data.length - 1].orderID;
                 let newOId = parseInt(lastOId.substring(1, 4)) + 1;
                 console.log(lastOId);
                 console.log(newOId)
@@ -71,13 +71,12 @@ function forAll(){
 
 function loadItemIDs(){
     $("#cmbItemId").empty();
-    // var customer=getCustomers();
+    //var customer=getCustomers();
     var ids=document.getElementById("cmbItemId");
     $.ajax({
-     //   url:"http://localhost:8080/PosSystem/items",
+       url:"http://localhost:8080/Spring_PosSystem_BackEnd_war/item",
         method:"GET",
         success(resp) {
-            console.log(resp.data);
             for (var i of resp.data) {
                 var opt=document.createElement("option");
                 opt.value=i.itemCode;
@@ -90,11 +89,11 @@ function loadItemIDs(){
 $("#cmbItemId").click(function () {
     let itemId=$('#cmbItemId').val();
     $.ajax({
-     //   url:"http://localhost:8080/PosSystem/items",
-        method:"Get",
+       url:"http://localhost:8080/Spring_PosSystem_BackEnd_war/item",
+        method:"GET",
         success(resp){
             for (var i of resp.data) {
-                if(itemId==i.itemCode){
+                if(itemId==i.ItemCode){
 
                     $("#itNames").val(i.itemName);
                     $("#itemprice").val(i.price);
@@ -115,14 +114,13 @@ function loadCustIDs(){
     // var customer=getCustomers();
     var ids=document.getElementById("cmbcustormerId");
     $.ajax({
-       // url:"http://localhost:8080/PosSystem/customer",
+        url:"http://localhost:8080/Spring_PosSystem_BackEnd_war/customer",
         method:"GET",
         success(resp) {
-            console.log(resp.data);
             for (var i of resp.data) {
                 var opt=document.createElement("option");
-                opt.value=i.id;
-                opt.text=i.id;
+                opt.value=i.custID;
+                opt.text=i.custID;
                 ids.appendChild(opt);
             }
         }
@@ -132,14 +130,14 @@ $("#cmbcustormerId").click(function () {
 
     let cus=$('#cmbcustormerId').val();
     $.ajax({
-      //  url:"http://localhost:8080/PosSystem/customer",
+       url:"http://localhost:8080/Spring_PosSystem_BackEnd_war/customer",
         method:"Get",
         success(resp){
             for (var i of resp.data) {
-                if(cus==i.id){
-                    $("#cusName").val(i.name);
+                if(cus==i.custID){
+                    $("#cusName").val(i.custName);
                     $("#CusSalary").val(i.salary);
-                    $("#CusAddress").val(i.address);
+                    $("#CusAddress").val(i.custAddress);
 
                 }
             }
@@ -180,14 +178,14 @@ $("#cmbcustormerId").click(function () {
 
 
     $.ajax({
-      //  url: "http://localhost:8080/PosSystem/order",
+        url: "http://localhost:8080/Spring_PosSystem_BackEnd_war/purchase_Order",
         method:"POST",
         contentType: "application/json",
         data:JSON.stringify(OrderOB),
         success:function (response) {
             if (response.status == 200) {
                 generateOrderNumber();
-                alert(response.data);
+                alert("hari save unaaaaaaaa")
             }else{
                 alert(response.data);
             }
@@ -209,9 +207,6 @@ $("#cmbcustormerId").click(function () {
           "qty" :$("#itemqty").val(),
           "itemCode" :$("#cmbItemId").val(),
      }
-
-
-
  };
 
  let sub_total = 0;
