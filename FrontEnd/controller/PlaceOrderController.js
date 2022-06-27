@@ -27,7 +27,7 @@ $("#btnAddtoCart").click(function () {
 function generateOrderNumber() {
 
     $.ajax({
-      //  url:"http://localhost:8080/PosSystem/order",
+       url:"http://localhost:8080/Spring_PosSystem_BackEnd_war/",
         method:"GET",
         success(response){
             try {
