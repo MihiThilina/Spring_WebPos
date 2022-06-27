@@ -7,7 +7,8 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="Spring_PosSystem_BackEnd" />
-          <factory-entry name="entityManagerFactory" />
+          <factory-entry name="entityManagerFactory" value="3a131eef-2861-4e39-917e-0d020658e828" />
+          <factory-entry name="entityManagerFactoryBean" value="3a131eef-2861-4e39-917e-0d020658e828" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
