@@ -43,11 +43,18 @@ $("#updateItem").click(function () {
 function saveItemDetails() {
     var data = $("#itemform").serialize();
     $.ajax({
-       // url: "http://localhost:8080/PosSystem/items",
+        url: "http://localhost:8080/Spring_PosSystem_BackEnd_war/item",
         method:"POST",
         data:data,
         success:function (add){
-            alert(add.data);
+            if(add.code==200){
+                alert("save unaaaaaaaaaaaaaaaaaaa");
+                loadAllItems();
+                clear();
+            }
+        },
+        error: function (ob) {
+            alert(ob.responseJSON.message);
         }
     });
 }
@@ -62,7 +69,7 @@ function loadAllItems() {
     $("#ItemTable").empty();
 
     $.ajax({
-       // url: "http://localhost:8080/PosSystem/items",
+        url: "http://localhost:8080/Spring_PosSystem_BackEnd_war/item",
         method: "GET",
         success : function (response) {
             for(var i of response.data) {
