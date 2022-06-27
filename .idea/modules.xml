@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Spring_PosSystem.iml" filepath="$PROJECT_DIR$/Spring_PosSystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Spring_PosSystem_BackEnd/Spring_PosSystem_BackEnd.iml" filepath="$PROJECT_DIR$/Spring_PosSystem_BackEnd/Spring_PosSystem_BackEnd.iml" />
+    </modules>
+  </component>
+</project>
