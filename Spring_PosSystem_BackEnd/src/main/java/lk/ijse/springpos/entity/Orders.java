@@ -21,9 +21,11 @@ public class Orders {
 
     //Out=verse
     @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.DETACH})
-    @JoinColumn(referencedColumnName = "custID",nullable = false)
+    @JoinColumn(name = "custID",referencedColumnName = "custID",nullable = false)
     private Customer customer;
 
+    @OneToMany(mappedBy = "orders",cascade = CascadeType.ALL)
+    private List<OrderDetails> orderDetails;
 
 
 }
