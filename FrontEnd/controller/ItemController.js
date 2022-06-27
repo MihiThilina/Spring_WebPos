@@ -43,7 +43,7 @@ $("#updateItem").click(function () {
 function saveItemDetails() {
     var data = $("#itemform").serialize();
     $.ajax({
-        url: "http://localhost:8080/PosSystem/items",
+       // url: "http://localhost:8080/PosSystem/items",
         method:"POST",
         data:data,
         success:function (add){
@@ -62,7 +62,7 @@ function loadAllItems() {
     $("#ItemTable").empty();
 
     $.ajax({
-        url: "http://localhost:8080/PosSystem/items",
+       // url: "http://localhost:8080/PosSystem/items",
         method: "GET",
         success : function (response) {
             for(var i of response.data) {

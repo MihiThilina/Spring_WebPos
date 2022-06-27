@@ -27,7 +27,7 @@ $("#btnAddtoCart").click(function () {
 function generateOrderNumber() {
 
     $.ajax({
-        url:"http://localhost:8080/PosSystem/order",
+      //  url:"http://localhost:8080/PosSystem/order",
         method:"GET",
         success(response){
             try {
@@ -74,7 +74,7 @@ function loadItemIDs(){
     // var customer=getCustomers();
     var ids=document.getElementById("cmbItemId");
     $.ajax({
-        url:"http://localhost:8080/PosSystem/items",
+     //   url:"http://localhost:8080/PosSystem/items",
         method:"GET",
         success(resp) {
             console.log(resp.data);
@@ -90,7 +90,7 @@ function loadItemIDs(){
 $("#cmbItemId").click(function () {
     let itemId=$('#cmbItemId').val();
     $.ajax({
-        url:"http://localhost:8080/PosSystem/items",
+     //   url:"http://localhost:8080/PosSystem/items",
         method:"Get",
         success(resp){
             for (var i of resp.data) {
@@ -115,7 +115,7 @@ function loadCustIDs(){
     // var customer=getCustomers();
     var ids=document.getElementById("cmbcustormerId");
     $.ajax({
-        url:"http://localhost:8080/PosSystem/customer",
+       // url:"http://localhost:8080/PosSystem/customer",
         method:"GET",
         success(resp) {
             console.log(resp.data);
@@ -132,7 +132,7 @@ $("#cmbcustormerId").click(function () {
 
     let cus=$('#cmbcustormerId').val();
     $.ajax({
-        url:"http://localhost:8080/PosSystem/customer",
+      //  url:"http://localhost:8080/PosSystem/customer",
         method:"Get",
         success(resp){
             for (var i of resp.data) {
@@ -180,7 +180,7 @@ $("#cmbcustormerId").click(function () {
 
 
     $.ajax({
-        url: "http://localhost:8080/PosSystem/order",
+      //  url: "http://localhost:8080/PosSystem/order",
         method:"POST",
         contentType: "application/json",
         data:JSON.stringify(OrderOB),

@@ -1,26 +1,31 @@
 $("#saveCustormer").click(function (e){
-    loadAllCustomers();
     saveCustormers();
-
-    // removeColorCustomer();
-    // clearCustomer();
 });
 
 
-function saveCustormers(){
-var cusId=$("#custormerID").val();
-data = $("#customerForm").serialize();
-    $.ajax({
-        url: "http://localhost:8080/PosSystem/customer",
-        method:"POST",
-        data:data,
-        success:function (add){
-            alert(add.data);
+    function saveCustormers(){
+    var data = $("#customerForm").serialize();
+
+        $.ajax({
+            url: "http://localhost:8080/Spring_PosSystem_BackEnd_war/customer",
+            method:"POST",
+            data:data,
+            success:function (add){
+                if (add.code==200){
+                    alert("hari save unaaaaaaaa")
+                    loadAllCustomers();
+                    clearCustomer();
+                }
+            },
+                error: function (ob) {
+                    alert(ob.responseJSON.message);
+                }
         }
-    });
+
+        );
 
 
-}
+    }
 
 function forCustomer() {
     loadAllCustomers();
@@ -29,11 +34,11 @@ function forCustomer() {
 function loadAllCustomers(){
     $("#custormerTable").empty()
     $.ajax({
-        url: "http://localhost:8080/PosSystem/customer",
+        url: "http://localhost:8080/Spring_PosSystem_BackEnd_war/customer",
         method: "GET",
         success : function (response) {
             for (var i of response.data) {
-                let row = `<tr><td>${i.id}</td><td>${i.address}</td><td>${i.name}</td><td>${i.salary}</td>
+                let row = `<tr><td>${i.custID}</td><td>${i.custName}</td><td>${i.custAddress}</td><td>${i.salary}</td>
           <td><button type="button" class="btn-sm  btnDeleteItem btn-danger">Delete</button>
           <button type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn-sm border btn-success updaterow" style="width: 11%;  "><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
           width="24" height="20"
@@ -42,6 +47,9 @@ function loadAllCustomers(){
           </tr>`;
                 $("#custormerTable").append(row);
             }
+        },
+        error: function (ob) {
+            alert(ob.responseJSON.message);
         }
     })
 
