@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Spring_PosSystem_BackEnd" target="1.5" />
+      <module name="Spring_PosSystem_BackEnd" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
