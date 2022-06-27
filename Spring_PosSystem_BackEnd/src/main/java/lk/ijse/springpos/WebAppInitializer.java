@@ -1,5 +1,6 @@
 package lk.ijse.springpos;
 
+import lk.ijse.springpos.config.WebAppConfig;
 import lk.ijse.springpos.config.WebRootConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -11,10 +12,12 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
     }
 
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[0];
+        return new Class[]{WebAppConfig.class};
     }
 
     protected String[] getServletMappings() {
-        return new String[0];
+        return new String[]{
+              "/"
+        };
     }
 }
