@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 public class OrderDto {
     private String orderID;
     private String  orderDate;
-    private CustomerDto  custID;
-    private ArrayList<OrderDetailsDto> orderDetailsDTOS;
+    private CustomerDto  customer;
+    private List<OrderDetailsDto> orderDetails;
 
 }

@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.List;
 
 @AllArgsConstructor
@@ -15,17 +14,18 @@ import java.util.List;
 @Entity
 @ToString
 public class Orders {
+
     @Id
     private String orderID;
     private String  orderDate ;
 
-    //Out=verse
     @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.DETACH})
-    @JoinColumn(name = "custID",referencedColumnName = "custID",nullable = false)
+    @JoinColumn(name = "customerID",referencedColumnName = "custID",nullable = false)
     private Customer customer;
 
     @OneToMany(mappedBy = "orders",cascade = CascadeType.ALL)
     private List<OrderDetails> orderDetails;
+
 
 
 }

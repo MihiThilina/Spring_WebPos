@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @Entity
 public class Item {
     @Id
-    private String ItemCode;
+    private String itemCode;
     private String ItemName;
     private double Price;
     private int  Qty;

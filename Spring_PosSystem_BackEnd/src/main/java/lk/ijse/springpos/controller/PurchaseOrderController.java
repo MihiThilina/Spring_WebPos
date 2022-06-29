@@ -30,23 +30,4 @@ public class PurchaseOrderController {
         return new ResponseUtil(200, "Save", null);
     }
 
-    @PutMapping()
-    public ResponseUtil updateOrder(@RequestBody OrderDto ordersDTO) {
-        return null;
-    }
-
-    @DeleteMapping(params = {"oid"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil deleteOrder(@RequestParam String oid) {
-        poService.deleteOrder(oid);
-        return new ResponseUtil(200, "Deleted", null);
-    }
-
-    @GetMapping
-    public ResponseUtil searchOrder() {
-        return null;
-    }
-
-
-
-
 }

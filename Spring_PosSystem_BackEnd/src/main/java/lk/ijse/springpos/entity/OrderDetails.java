@@ -18,7 +18,7 @@ public class OrderDetails {
     private String orderID;
     @Id
     private String itemCode;
-    private String orderqty;
+    private int orderqty;
     private double discount;
     private int balance;
 

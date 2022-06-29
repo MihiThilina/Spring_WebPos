@@ -11,9 +11,11 @@ import lombok.ToString;
 @ToString
 
 public class OrderDetailsDto {
-    private String orderID;
     private String itemCode;
-    private int orderqty;
-    private double discount;
+    private String orderID;
     private int balance;
+    private double discount;
+    private String orderqty;
+
+
 }

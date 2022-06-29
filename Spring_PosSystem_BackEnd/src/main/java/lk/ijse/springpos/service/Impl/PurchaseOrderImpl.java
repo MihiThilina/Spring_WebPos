@@ -37,43 +37,23 @@ public class PurchaseOrderImpl implements PurchaseOrderService {
 
     @Override
     public void purchaseOrder(OrderDto dto) {
-        if (ordersRepo.existsById(dto.getOrderID())) {
-
-            Orders order = mapper.map(dto, Orders.class);
-            if (dto.getOrderDetailsDTOS().size() < 1) throw new RuntimeException("No items added for the order..!");
-
-            for (OrderDetails od : order.getOrderDetails()) {
-                Item item = itemRepo.findById(od.getItemCode()).get();
-                OrderDetails previous = orderDetailsRepo.findById(String.valueOf(new OrderItem_PK(od.getOrderID(), od.getItemCode()))).get();
-
-                //Update the Item Qty
-                int newQty = Integer.parseInt(od.getOrderqty());
-                int prevQty = Integer.parseInt(previous.getOrderqty());
-                if (newQty > prevQty) {
-                    int dif = newQty - prevQty;
-                    item.setQty(item.getQty() - dif);
-                } else if (newQty < prevQty) {
-                    int dif = prevQty - newQty;
-                    item.setQty(item.getQty() + dif);
-                }
+        Orders orders = mapper.map(dto, Orders.class);
+        if(!ordersRepo.existsById(dto.getOrderID())){
+            ordersRepo.save(orders);
+            if(dto.getOrderDetails().size() < 1)throw new RuntimeException("No items added for the order..!");
+            for(OrderDetails details:orders.getOrderDetails()){
+                Item item = itemRepo.findById(details.getItemCode()).get();
+                item.setQty(item.getQty()-details.getOrderqty());
                 itemRepo.save(item);
             }
-            //then delete the old order
-            ordersRepo.deleteById(dto.getOrderID());
-            //finally update the new order
-            ordersRepo.save(order);
-        } else {
-            throw new RuntimeException("Update Order Failed..!, Order ID " + dto.getOrderID() + " Not Exist.!");
+        }else {
+            throw new RuntimeException("Purchase Order Failed..!, Order ID " + dto.getOrderID() + " Already Exist.!");
         }
     }
 
     @Override
     public void deleteOrder(String oid) {
-        if (ordersRepo.existsById(oid)) {
-            ordersRepo.deleteById(oid);
-        } else {
-            throw new RuntimeException("Delete Order Failed..!, Order ID " + oid + " Not Exist..!");
-        }
+
     }
 
     @Override

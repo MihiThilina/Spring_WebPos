@@ -8,7 +8,6 @@ function loadAllConfirmOrder(){
     $("#OrderInfoTable").empty();
 
 
-
     for(var i of OrderDB){
       let row = `<tr>
       <td>${i.getOid()}</td>

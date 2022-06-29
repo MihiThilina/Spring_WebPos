@@ -52,12 +52,75 @@ function generateOrderNumber() {
 
 
 $(".comfirmOrders").click(function(){
-   generateOrderNumber();
+
+    generateOrderNumber();
    saveAllOrders();
    //loadAllConfirmOrder();
    Carts=[];
    // clearAll();
 });
+
+function saveAllOrders(){
+    let oID=$(".txtOrderId").text();
+    let cID =$("#cmbcustormerId").val();
+    let oDate =$("#datetime").val();
+    let cName=$("#cusName").val();
+    let cAddress=$("#CusAddress").val();
+    let cmbItemId=$("#cmbItemId").val();
+    let csalary=$("#CusSalary").val()
+    let iPrice=$("#itemprice").val();
+    let oQty=$("#OrderQty").val();
+    let discount=$("#txtDiscount").val();
+    let fullTotal=$("#txtTotal").text();
+
+
+    var orderDetailsDb= new Array();
+    for (const o of Carts) {
+        orderDetails ={
+            "orderID":o.orderid,
+            "itemCode":o.itemCode,
+            "orderqty":o.orderQty,
+            "discount":o.disc,
+            "balance":o.fulltoal
+        }
+        orderDetailsDb.push(orderDetails);
+    }
+
+
+
+    var OrderOB = {
+         orderID : oID,
+         orderDate : oDate,
+         customer:{
+            "custID":cID,
+            "custName":cName,
+            "custAddress":cAddress,
+            "salary":csalary
+        },
+        orderDetails:orderDetailsDb
+    }
+
+
+
+    $.ajax({
+        url: "http://localhost:8080/Spring_PosSystem_BackEnd_war/purchase_Order",
+        method:"POST",
+        contentType: "application/json",
+        data:JSON.stringify(OrderOB),
+        success:function (response) {
+            if (response.code == 200) {
+                generateOrderNumber();
+                alert("hari save unaaaaaaaa")
+            }else{
+                alert(response.data);
+            }
+        },
+        error (ob, textStatus, error) {
+            alert(textStatus);
+        }
+    });
+
+}
 
 function forAll(){
     loadCustIDs();
@@ -93,7 +156,7 @@ $("#cmbItemId").click(function () {
         method:"GET",
         success(resp){
             for (var i of resp.data) {
-                if(itemId==i.ItemCode){
+                if(itemId==i.itemCode){
 
                     $("#itNames").val(i.itemName);
                     $("#itemprice").val(i.price);
@@ -154,45 +217,8 @@ $("#cmbcustormerId").click(function () {
 
 
 
- function saveAllOrders(){
-    let oId =$(".txtOrderId").text();
-    let cusid =$("#cmbcustormerId").val();
-    let date =$("#datetime").val();
-    let discount =$("#txtDiscount").val();
-    let totals =$("#txtTotal").text();
 
 
-
-
-
-    var OrderOB = {
-        "OrderID" : oId,
-        "orderDate": date,
-        "OrderTime": totals,
-        "CustID": cusid,
-        "cart": Carts
-    }
-
-    // console.log(OrderOB.cart[0].itemCode)
-
-
-
-    $.ajax({
-        url: "http://localhost:8080/Spring_PosSystem_BackEnd_war/purchase_Order",
-        method:"POST",
-        contentType: "application/json",
-        data:JSON.stringify(OrderOB),
-        success:function (response) {
-            if (response.status == 200) {
-                generateOrderNumber();
-                alert("hari save unaaaaaaaa")
-            }else{
-                alert(response.data);
-            }
-        }
-    });
-
- }
 
 
 
@@ -223,6 +249,7 @@ $("#cmbcustormerId").click(function () {
 
 
 function addToCart() {
+    let orderid=$(".txtOrderId").text();
   let  itemCode = $("#cmbItemId").val();
   let  itemName = $("#itNames").val();
   let  itemPrice = $("#itemprice").val();
@@ -246,6 +273,7 @@ function addToCart() {
     }
 
     cartsOB ={
+        "orderid":orderid,
         "itemCode":itemCode,
         "itemName":itemName,
         "itemPrice":itemPrice,
